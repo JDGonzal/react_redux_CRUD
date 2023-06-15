@@ -141,3 +141,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.vite/
+*.7z

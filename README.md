@@ -25,7 +25,27 @@ npm init vite@latest react_redux_CRUD --template react-ts
 ```Mathematica
 pnpm install
 ```
+This is an example running with ```pnpm```
+![pnpm install](images/2023-06-15_162456.png)
 3. And run the application.
 ```Mathematica
 pnpm dev
+```
+4. Some changes in the "vite.config.ts" file, based on [Create react app vs Vite](https://dev.to/keefdrive/create-react-app-vs-vite-2amn):
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path' // pnpm install -D @types/node
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+  },
+})
+```
+5. Install the pending elements showing as error in ```path```
+```Mathematica
+pnpm install -D @types/node
 ```
