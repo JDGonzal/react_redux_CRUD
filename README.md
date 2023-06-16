@@ -124,3 +124,33 @@ export default configureStore({
       </Provider>
     </>
 ```
+
+## To use the values and call the task
+1. In the "Home.tsx" file import the ```useSelector``` from ```'react-redux'```
+2. Add a "models" directory with a "task.model.ts" file.
+```javascript
+export interface TaskInterface{
+  id: string;
+  name: string;
+}
+```
+3. Assigned this to "tasksSlices.ts", to use in the InitalState, with an empty array of ths data from ```TaskInterface```.
+4. Very important to assign types or Interface in the "store.ts" file.
+```javascript
+export interface AppStore{
+  tasks : TaskInterface[];
+}
+export default configureStore<AppStore>({
+  reducer: {
+    tasks: tasksSlice.reducer,
+  }
+});
+```
+5. Into "Home.tsk" file call the ```useSelector```, using this format:
+```javascript
+const tasksState = useSelector<AppStore>(state => state.tasks);
+```
+To show in a ```console.log```.
+
+6. Added two new basic Components, called: TaskForm, and TaskList.
+7. The new components are added to "Home.tsx" file.

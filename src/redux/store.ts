@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {tasksSlice} from "./states";
+import { tasksSlice } from "./states";
+import { TaskInterface } from "@/models";
 
-export default configureStore({
+export interface AppStore {
+  tasks: TaskInterface[];
+}
+
+export default configureStore<AppStore>({
   reducer: {
-    task: tasksSlice.reducer,
+    tasks: tasksSlice.reducer,
   }
 });
 // const store = configureStore({});

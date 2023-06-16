@@ -6,6 +6,8 @@ import path from 'path' // pnpm install -D @types/node
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
 })
