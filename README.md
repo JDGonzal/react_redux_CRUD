@@ -124,9 +124,9 @@ export default configureStore({
         </div>
       </Provider>
     </>
-`
+```
 
-## 1b.To use the values and call the task
+## 1b. To use the values and call the task
 1. In the "Home.tsx" file import the `useSelector` from `'react-redux'`
 2. Add a "models" directory with a "task.model.ts" file.
 ```javascript
@@ -156,7 +156,7 @@ To show in a `console.log`.
 6. Added two new basic Components, called: TaskForm, and TaskList.
 7. The new components are added to "Home.tsx" file.
 
-## 2a. List and Create (react RTK)
+## 2a. Basic elements in TaskList and TaskForm 
 1. Complete the `initialState` in "tasksSlices.ts" file.
 ```javascript
 const initialState: TaskInterface[] = [
@@ -204,4 +204,46 @@ const tasksState = useSelector((state:AppStore) => state.tasks );
     e.preventDefault(); // Avoid to Page refresing
     console.log(task);
   }
+```
+
+## 2b. List and Create (react RTK)
+1. In the "tasksSlices.ts" file add finale a first function, into `reducers:{`.
+```javascript
+  reducers: {
+    addTask: (state, action) =>{
+      console.log(state, action);
+    }
+```
+2. Add to "TaskForm.tsx" and `useDispatch()`
+```javascript
+const dispatch=useDispatch();
+```
+3. The `handleSubmit` to add this `dispatch`.
+```javascript
+    dispatch(addTask(task));
+```
+4. Correction to `addTask` of the "taslSlice.ts" file, to really add an object.
+```javascript
+    addTask: (state, action) =>{
+      state.push(action.payload);
+    }
+```
+5. There are and error, because the "id" is empty when it shows in "TaskList", then install a Generator of ID:
+```Mathematica
+pnpm i uuid
+```
+6. As well install the types for this `uuid`:
+```Mathematica
+npm i --save-dev @types/uuid
+```
+7. Add the new generator of `uuid` in the "TaskForm.tsx" file.
+```javascript
+import { v4 as uuid } from 'uuid';
+```
+8. Use this uuid when you are going to use the `dispatch(addTask(`:
+```javascript
+    dispatch(addTask({
+      ...task,
+      id: uuid(),
+    }));
 ```

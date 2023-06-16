@@ -20,8 +20,14 @@ export const tasksSlice = createSlice({
   name: 'taskSlice',
   initialState: initialState,
   reducers: {
-
+    addTask: (state, action) =>{
+      // I can add data using: state.push(action.payload);
+      state.push(action.payload);
+      // Another wasy is: [...state, action.payload];
+    }
   }
 });
+
+export const {addTask} = tasksSlice.actions;
 
 export default tasksSlice.reducer;
