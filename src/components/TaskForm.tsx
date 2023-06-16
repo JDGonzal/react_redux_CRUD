@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addTask } from '@/redux';
+import { v4 as uuid } from 'uuid';
 
 function TaskForm() {
   const [task, setTask] = useState({
@@ -15,9 +18,14 @@ function TaskForm() {
     });
   };
 
+  const dispatch=useDispatch();
+
   const handleSubmit =  (e:any) => {
     e.preventDefault(); // Avoid to Page refresing
-    console.log(task);
+    dispatch(addTask({
+      ...task,
+      id: uuid(),
+    }));
   }
 
   return (
