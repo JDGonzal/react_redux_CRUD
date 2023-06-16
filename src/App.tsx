@@ -1,14 +1,20 @@
-
-import './App.css'
+import "./App.css";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { Home } from "./pages/Home";
 
 function App() {
   //const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <h1>Hola Mundo</h1>
-    </div>
-  )
+    <>
+      <Provider store={store}>
+        <div className="App">
+          <Home/>
+        </div>
+      </Provider>
+    </>
+  );
 }
 
-export default App
+export default App;
