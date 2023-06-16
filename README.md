@@ -2,13 +2,13 @@
 ## _Course based on Youtube video with Fazt Code_
 [React y Redux Toolkit CRUD (con TailwindCSS)](https://www.youtube.com/watch?v=w2rAP7d6ndg)
 
-## Preconditions
+## 0a. Preconditions
 1. Install the NPM and NODEJS in your system [Nodejs Download](https://nodejs.org/en/download/current/)
 2. Check in $path or %path% the nodeJS and npm are on it
-  ```bash
+  ```Mathematica
   C:/Program Files/nodejs
   ```
-3. Install also ```pnpm``` [pnpm installation](https://pnpm.io/installation), it is more fast than ```npm```
+3. Install also `pnpm` [pnpm installation](https://pnpm.io/installation), it is more fast than `npm`
 4. Install Postman
   [Postman Download](https://www.postman.com/downloads/)
 5. Install MySQL 5.6.x
@@ -16,16 +16,16 @@
 6. Install Visual Studio Code
   [Visual Studio Download](https://code.visualstudio.com/insiders/)
 
-## Starting the proyect
+## 0b. Starting the proyect
 1. I used [Vite](https://vitejs.dev/guide/), the best way to start any front-end project, with Typescrypt and a lot of templates:
 ```Mathematica
 npm init vite@latest react_redux_CRUD --template react-ts
 ```
-2. Following the instruccions, install the applications based on the ```package.json``` file.
+2. Following the instruccions, install the applications based on the `package.json` file.
 ```Mathematica
 pnpm install
 ```
-This is an example running with ```pnpm```
+This is an example running with `pnpm`
 ![pnpm install](images/2023-06-15_162456.png)
 3. And run the application.
 ```Mathematica
@@ -45,12 +45,12 @@ export default defineConfig({
   },
 })
 ```
-5. Install the pending elements showing as error in ```path```
+5. Install the pending elements showing as error in `path`
 ```Mathematica
 pnpm install -D @types/node
 ```
 
-## Redux to as store main data 
+## 1a. Redux to store main data 
 1. [Install Redux Toolkik an React-Redux](https://redux-toolkit.js.org/tutorials/quick-start)
 ```Mathematica 
 pnpm install @reduxjs/toolkit react-redux
@@ -71,11 +71,12 @@ or
 export default configureStore({});
 ```
 I used the second one.
-5. In the main file "App.tsx" add a ```Provider``` to include all the others
+
+5. In the main file "App.tsx" add a `Provider` to include all the others
 ```javascript
 import { Provider } from "react-redux";
 ```
-6. Call the ```store``` from ""store.ts".
+6. Call the `store` from ""store.ts".
 ```javascript
 import store from "./redux/store";
 ```
@@ -90,7 +91,7 @@ import store from "./redux/store";
     </>
 ```
 8. Create a directory called "states" into redux, and create a file called "tasksSlides.ts".
-9. Create a basic ```Slice``` to store the values and process to do:
+9. Create a basic `Slice` to store the values and process to do:
 ```javascript
 import { createSlice } from '@reduxjs/toolkit'
 export const tasksSlice = createSlice({
@@ -101,11 +102,11 @@ export const tasksSlice = createSlice({
 });
 export default tasksSlice.reducer;
 ```
-10. This is the "index.ts" file for this "states directory:
+10. This is the "index.ts" file for this "states" directory:
 ```javascript
 export * from './tasksSlices';
 ```
-11. This is how I use this ```slice``` into the "store.ts" file:
+11. This is how I use this `slice` into the "store.ts" file:
 ```javascript
 export default configureStore({
   reducer: {
@@ -123,10 +124,10 @@ export default configureStore({
         </div>
       </Provider>
     </>
-```
+`
 
-## To use the values and call the task
-1. In the "Home.tsx" file import the ```useSelector``` from ```'react-redux'```
+## 1b.To use the values and call the task
+1. In the "Home.tsx" file import the `useSelector` from `'react-redux'`
 2. Add a "models" directory with a "task.model.ts" file.
 ```javascript
 export interface TaskInterface{
@@ -134,7 +135,7 @@ export interface TaskInterface{
   name: string;
 }
 ```
-3. Assigned this to "tasksSlices.ts", to use in the InitalState, with an empty array of ths data from ```TaskInterface```.
+3. Assigned this to "tasksSlices.ts", to use in the InitalState, with an empty array of ths data from `TaskInterface`.
 4. Very important to assign types or Interface in the "store.ts" file.
 ```javascript
 export interface AppStore{
@@ -146,11 +147,61 @@ export default configureStore<AppStore>({
   }
 });
 ```
-5. Into "Home.tsk" file call the ```useSelector```, using this format:
+5. Into "Home.tsk" file call the `useSelector`, using this format:
 ```javascript
 const tasksState = useSelector<AppStore>(state => state.tasks);
 ```
-To show in a ```console.log```.
+To show in a `console.log`.
 
 6. Added two new basic Components, called: TaskForm, and TaskList.
 7. The new components are added to "Home.tsx" file.
+
+## 2a. List and Create (react RTK)
+1. Complete the `initialState` in "tasksSlices.ts" file.
+```javascript
+const initialState: TaskInterface[] = [
+  { id: "1", title: "Task1", description: "Task1 description", completed:false,},
+  { id: "2", title: "Task2", description: "Task2 description", completed:false,}];
+```
+2. Then I have to chenge the `TaskInterface` in "task.model.ts" file:
+```javascript
+export interface TaskInterface{
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+}
+```
+3. Remove or become to Comment the `useSelector` in "Home.tsx" file.
+4. Put the `useSelector` in the "TaskList.tsx" file:
+```javascript
+const tasksState = useSelector((state:AppStore) => state.tasks );
+```
+5. Use to show the list of elements
+```javascript
+      {tasksState.map(task =>(
+        <div key={task.id}>
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+        </div>
+      ))} 
+```
+6. to "taskForm.tsk" component, add an `<input>`, `<textarea>`, and a `<button>`.
+7. Add an `useState` just with an empty title, and description:
+```javascript
+  const [task, setTask] = useState({ title:'', description: '' });
+```
+8. put an Event manager when Change, and assign to the `<input>`, and `<textarea>`
+```javascript
+  const handleChange = (e:any) => {
+    console.log('event:', e.target.value, e.target.name);
+  };
+```
+9. The `handleChange` method change to store 
+10. For the `<button>` I associate and event called `handleSubmit`
+```javascript
+  const handleSubmit =  (e:any) => {
+    e.preventDefault(); // Avoid to Page refresing
+    console.log(task);
+  }
+```
