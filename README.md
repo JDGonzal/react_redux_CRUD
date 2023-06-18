@@ -247,3 +247,54 @@ import { v4 as uuid } from 'uuid';
       id: uuid(),
     }));
 ```
+
+## 3. Delete a task (React RTK)
+1. Add a button in "TaskList.tsx" file by each Task:
+```javascript
+    <button onClick={()=>handleDelete(task.id)}>Delete</button>
+```
+2. By now the `handleDelete` method with a consol.log with the id
+```javascript
+  const handleDelete = (id:string) => {
+    console.log('event:', id);
+  };
+```
+3. Add a new `reducers` into "TaskSlice.ts" file:
+```javascript
+    deleleteTask: (state, action) =>{
+      console.log(action.payload);
+    }
+```
+
+### Note: I can not use `delTask` in the `reducers`
+
+4. Add in the export list:
+```javascript
+export const {addTask, deleteTask} = tasksSlice.actions;
+```
+5. in the "TaskList.tsx" add the `useDispatch` from `'reac-redux'`.
+```javascript
+const dispatch=useDispatch();
+```
+6. Import the `delTask` from  "../redux" directory
+```javascript
+import { AppStore, deleteTask } from "../redux";
+```
+7. Call the `deleteTask` in the `handleDelete`
+```javascript
+  const dispatch=useDispatch();
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteTask(id));
+  };  
+```
+8. Change the `deleleteTask` with the find an element in the array:
+```javascript
+    const taskFound = state.find( task => task.id === action.payload);
+```
+9. Finally with the Task Found, lets to delete of array with `split`, into a conditional:
+```javascript
+      if (taskFound) {
+        state.splice(state.indexOf(taskFound),1);
+      }
+```
