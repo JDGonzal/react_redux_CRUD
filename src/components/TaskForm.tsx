@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { addTask } from '@/redux';
+import { addTask } from "../redux";
 import { v4 as uuid } from 'uuid';
 
 function TaskForm() {
