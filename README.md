@@ -329,3 +329,65 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
         </Routes>
 
 ```
+
+## 4b. Improvement the routes in the pages
+1. Import in "TaskForm.tsx" the `useNavigate` from `reac-router-dom`.
+2. I'm going to instantiate as the `useDispatch()`:
+```javascript
+const navigate = useNavigate();
+```
+3. After execute the dispatch , back to the original page.
+4. Add a "Navbar.tsx" component to link the pages, in "components" directory:
+```javascript
+import { Link } from "react-router-dom";
+function Navbar() {
+  return (
+    <nav className="navbar">
+      <ul>
+        <li> <Link to="/"> Home</Link>{" "} </li>
+        <li> <Link to="/create-task"> Create Task</Link> </li>
+      </ul>
+    </nav>
+  );
+}
+export default Navbar;
+```
+5. Update the _barrel_ or the "index.ts" from "components" directory.
+```javascript
+export { default as Navbar } from './Navbar';
+export { default as TaskForm } from './TaskForm';
+export { default as TaskList } from './TaskList';
+``` 
+6. Call the `<Navbar/>` below of `<BrowserRouter>`, in "Home.tsk" file.
+7. in "TaskList" can add a quantity of task as first element after `<div>`:
+```javascript
+      <h1>Tasks: {tasksState.length}</h1>
+```
+### Note: I add some elemenst in "App.css" file:
+
+[Horizontal Navigation Bar Examples](https://www.w3schools.com/css/css_navbar_horizontal.asp)
+
+```CSS
+/* Elements of the "Navbar.tsx" file */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  color: white;
+  text-align: right;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+```
