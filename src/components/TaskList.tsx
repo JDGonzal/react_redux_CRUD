@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { AppStore, deleteTask } from "../redux";
+import { Link } from "react-router-dom";
 
 function TaskList() {
   const tasksState = useSelector((state: AppStore) => state.tasks);
@@ -17,6 +18,7 @@ function TaskList() {
           <h3>{task.title}</h3>
           <p>{task.description}</p>
           <button onClick={() => handleDelete(task.id)}>Delete</button>
+          <Link to={`/update-task/${task.id}`}>Update</Link>
         </div>
       ))}
     </div>
