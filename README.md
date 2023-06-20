@@ -298,3 +298,34 @@ import { AppStore, deleteTask } from "../redux";
         state.splice(state.indexOf(taskFound),1);
       }
 ```
+## 4a. Rutas react-router-dom@6 (React RTK)
+1. Install the [react-router-dom](https://reactrouter.com/en/main/start/tutorial)
+```Mathematica
+pnpm install react-router-dom
+```
+2. Also remember you are working with `TYPESCRIPT`, then you need install `@types/`:
+```Mathematica
+pnpm install @types/react-router-dom
+``` 
+3. We are working in "Home.tsx" file, first deleting the "Home" message into `<div>`.
+4. Import the `BrowserRouter`, `Routes`, and `Route` from `react-router-dom`:
+```javascript
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+```
+5. Add the the `BrowserRouter`, and `Routes` components are over the `TaskList`, and `TaskForm`:
+```javascript
+      <BrowserRouter>
+        <Routes>
+          <TaskForm />
+          <TaskList />
+        </Routes>
+      </BrowserRouter>
+```
+6. Starting to use the `Route`, calling the `TaskList`as a root, and `TaskForm` in site `'/create-task'`.
+```javascript
+        <Routes>
+          <Route path='/' element={<TaskList/>} />
+          <Route path='/create-task' element={<TaskForm/>} />
+        </Routes>
+
+```
