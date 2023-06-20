@@ -298,7 +298,7 @@ import { AppStore, deleteTask } from "../redux";
         state.splice(state.indexOf(taskFound),1);
       }
 ```
-## 4a. Rutas react-router-dom@6 (React RTK)
+## 4a. Routes react-router-dom@6 (React RTK)
 1. Install the [react-router-dom](https://reactrouter.com/en/main/start/tutorial)
 ```Mathematica
 pnpm install react-router-dom
@@ -391,3 +391,69 @@ li a:hover {
   background-color: #111;
 }
 ```
+## 5. Update a task (React RTK)
+1. Add a Link in the "TaskList.tsk" component, below the Delete `<button>`.
+```javascript
+      <Link to="">Update</Link>
+```
+2. Add a route into "Home.tsx" file:
+```javascript
+      <Route path={`/update-task/:id`} element={<TaskForm />} />
+```
+3. Correction to the pending in `Link` of "TaskLst.tsx" file:
+```javascript
+      <Link to={`/update-task/${task.id}`}>Update</Link>
+```
+4. Verify in "TaskForm.tsx" file the ID with `useParams` first get `params`:
+```javascript
+    const params   = useParams();
+```
+5. Next into `useEffect`, show `params` in "TaskForm.tsx" file:
+```javascript
+    useEffect(()=>{
+      console.log(params);
+    }, [params.id, tasks]); 
+```
+6. With the `useSelector` we get the `state` or tasks list from `AppStore`:
+```javascript
+    const tasks = useSelector((state: AppStore) => state.tasks);
+```
+7. Replace the `console.log` of `useEffect` in "TaskForm.tsx" file, with a conditional:
+```javascript
+      if (params.id){
+        setTask(tasks.find(task => task.id === params.id));
+      }
+```
+8. Adding the value for each data to read later by screen: `<input`
+```javascript
+          value={task.title}
+```
+- and `<textarea`
+```javascript
+          value={task.description}
+```
+9. For `handleSubmit`, add a contitional , to know if is _add_ or _update_ in "TaskForm.tsx" file:
+```javascript
+    if (params.id) {
+      dispatch();
+    } else {
+      dispatch( addTask({ ...task, id: uuid(), }) );
+    }
+```
+10. Add an `updateTask: (state, action) =>{` in "tasksSlices.ts" file.
+```javascript
+    updateTask: (state, action) =>{
+      const {id, title, description} = action.payload;
+      const taskFound = state.find( task => task.id === id);
+      if(taskFound) {
+        taskFound.title = title;
+        taskFound.description = description;
+      }
+    },
+```
+11. Correction to the edit `dispatch` in "TaskForm.tsx" file:
+```javascript
+    if (params.id) {
+      dispatch( updateTask(task));
+```
+

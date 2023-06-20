@@ -11,6 +11,7 @@ const Home: React.FC /* <HomeProps> */ = () => {
         <Routes>
           <Route path="/" element={<TaskList />} />
           <Route path="/create-task" element={<TaskForm />} />
+          <Route path="/update-task/:id" element={<TaskForm />} />
         </Routes>
       </BrowserRouter>
     </>
