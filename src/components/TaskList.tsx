@@ -11,8 +11,7 @@ function TaskList() {
 
   return (
     <div>
-      {" "}
-      List
+      <h1>Tasks: {tasksState.length}</h1>
       {tasksState.map((task) => (
         <div key={task.id}>
           <h3>{task.title}</h3>
