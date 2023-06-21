@@ -456,4 +456,30 @@ li a:hover {
     if (params.id) {
       dispatch( updateTask(task));
 ```
+## 6a. Tailwind CSS Installation and configuration
+1. Go the [Tailwind CSS](https://tailwindcss.com/docs/installation), and select "Framework Guides" option.
+2. Becasue I used the "Vite", select "Vite". 
+3. Run this command of the 2 step "Install Tailwind CSS" option, in a terminal:
+```Mathematica
+pnpm install -D tailwindcss postcss autoprefixer
+```
+![pnpm install -D tailwindcss](images/2023-06-21_114645.png)
 
+4. Run this process to Initialize the tailwind css or create the config Tailwind file:
+```Mathematica
+npx tailwindcss init -p
+```
+5. Add the paths into the `content: [],` to all of your template files in your "tailwind.config.js" file.
+```javascript
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+``` 
+6. Delete all code into "index.css" file.
+7. Add the `@tailwind` directives for each of Tailwind’s layers to the "index.css" file.
+```javascript
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
