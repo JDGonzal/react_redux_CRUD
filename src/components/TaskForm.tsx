@@ -50,21 +50,25 @@ function TaskForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="bg-neutral-500 text-neutral-100 rounded-md max-w-sm p-4">
+      <label htmlFor="title" className="block text-xs font-bold mb-1">Task:</label>
       <input
         name="title"
         type="text"
         placeholder="title"
         onChange={handleChange}
         value={task.title}
+        className="w-full p-2 rounded-md bg-zinc-700"
       />
+      <label htmlFor="description" className="block text-xs font-bold mb-1 mt-3">Description:</label>
       <textarea
         name="description"
         placeholder="description"
         onChange={handleChange}
         value={task.description}
+        className="w-full p-2 rounded-md bg-zinc-700"
       ></textarea>
-      <button>Save</button>
+      <button className="btn bg-green-800 hover:bg-green-600 text-xs rounded-md px-2 py-1">Save</button>
     </form>
   );
 }

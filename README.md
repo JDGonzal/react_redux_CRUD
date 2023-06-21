@@ -456,6 +456,7 @@ li a:hover {
     if (params.id) {
       dispatch( updateTask(task));
 ```
+
 ## 6a. Tailwind CSS Installation and configuration
 1. Go the [Tailwind CSS](https://tailwindcss.com/docs/installation), and select "Framework Guides" option.
 2. Becasue I used the "Vite", select "Vite". 
@@ -482,4 +483,75 @@ npx tailwindcss init -p
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+```
+
+## 6b. Using the Tailwin CSS in the Application
+1. For fisrt Segment `<>`, become in a `<div>`and add a `className`:
+```javascript
+<div className="bg-zinc-200 h-screen text-blue-900">
+```
+2. Add another `<div>` before of `<Navbar>`, with a `className`:
+```javascript
+<div className="flex items-center justify-center h-full">
+```
+3. Add a another `<div>` element into "home.tsx" file, before of `<Navbar>`:
+```javascript
+<div className="w-4/6">
+```
+5. Delete all from "App.css" file.
+6. Add to `<nav>` element a `className`:
+```javascript
+<nav className="flex justify-end items-center py-4">
+```
+7. Add a `className` to `<h1>` element:
+```javascript
+<h1 className="flex justify-between items-center py-4">
+```
+8. Add a `className` into "Navbar.tsx" for the `<Link>` element:
+```javascript
+className="text-neutral-500 hover:text-neutral-700"
+```
+9. The "TaskList" to put in a grid, first arround all the `tasks.map` add a `<div>` element with a `className`:
+```javascript
+<div className="grid grid-cols-3 gap-3">
+```
+10. Put a each element a `className`, to create a _cards_ .
+```javascript
+<div key={task.id} className="bg-neutral-500 text-neutral-100 p-1 rounded-md">
+```
+11. Move in "TaskList.tsx" `<button>` and `<Link>` below the `<h3>{task.title}</h3>` and closed in a `<div>` with a class:
+```javascript
+              <h3>{task.title}</h3>
+              <div className="flex gap-x-2">
+                <button onClick={() => handleDelete(task.id)} className="btn bg-red-800 hover:bg-red-600 text-xs rounded-md px-2 py-1">Delete</button>
+                <Link to={`/update-task/${task.id}`} className="btn bg-blue-800 hover:bg-blue-600 text-xs rounded-md px-2 py-1">Update</Link>
+              </div>
+```
+12. Put a `<header>` over the `<h3>` , and closing wiht the `</div>` of `<button>` and `<Link>`, with a `classname` in "TaskList.tsx" file:
+```javascript
+            <header className="flex justify-between">
+```
+13. For "TaskForm.tsx" add `className` in `<form` element.
+```javascript
+<form onSubmit={handleSubmit} className="bg-neutral-500 text-neutral-100 rounded-md max-w-sm p-4">
+```
+14. Add a Label before the `<input` element:
+```javascript
+<label htmlFor="title" className="block text-xs font-bold mb-1">Task:</label>
+```
+15. Add a Label before the `<textarea` element:
+```javascript
+<label htmlFor="description" className="block text-xs font-bold mb-1 mt-3">Description:</label>
+```
+16. Add a `className` to the `<input` element:
+```javascript
+className="w-full p-2 rounded-md bg-zinc-700"
+```
+17. Add the `className` to the `<textarea` element:
+```javascript
+className="w-full p-2 rounded-md bg-zinc-700"
+```
+18. Complete the "Save" `<button` adding a `className` :
+```javascript
+<button className="btn bg-green-800 hover:bg-green-600 text-xs rounded-md px-2 py-1">
 ```
